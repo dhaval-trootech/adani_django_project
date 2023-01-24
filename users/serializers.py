@@ -37,11 +37,11 @@ class UserSerializer(serializers.ModelSerializer):
 
         if not password == confirm_password:
             raise serializers.ValidationError("Password & Confirm Password Doesn't Matched..")
+        del attrs['confirm_password']
         return attrs
 
     # Override Create() Method of ModelSerializer
     def create(self, validated_data):
-        del validated_data['confirm_password']
         user = User.objects.create(**validated_data)
         user.set_password(validated_data.get('password'))
         user.save()
