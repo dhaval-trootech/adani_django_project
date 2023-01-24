@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from .models import User
+import sqlparse
+from django.db import connection
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -7,7 +9,8 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'first_name', 'last_name', 'password', 'email', 'phone', 'confirm_password')
+        fields = (
+            'id', 'username', 'first_name', 'last_name', 'password', 'email', 'phone', 'confirm_password')
         extra_kwargs = {
             'password': {'write_only': True}
         }
@@ -43,9 +46,21 @@ class UserSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Password & Confirm Password Doesn't Matched..")
         return attrs
 
+    # Override Create() Method of ModelSerializer
     def create(self, validated_data):
         del validated_data['confirm_password']
         user = User.objects.create(**validated_data)
         user.set_password(validated_data.get('password'))
         user.save()
         return user
+
+    # Override Update() Method of ModelSerializer
+    def update(self, instance, validated_data):
+        instance = super().update(instance, validated_data)
+        instance.set_password(validated_data.get('password'))
+        instance.save()
+        # to print SQl Query
+        query = connection.queries[-1]['sql']
+        parsed = sqlparse.format(query, reindent=True, keyword_case='upper')
+        print("SQL QUERY---> ", parsed)
+        return instance

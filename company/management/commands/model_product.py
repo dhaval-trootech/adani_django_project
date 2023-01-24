@@ -5,8 +5,8 @@ from company.serializers import ProductSerializer
 class Command(BaseCommand):
     def handle(self, *args, **options):
         user_data = {
-            'name': 'Adani Bags Combo',
-            'company': 11,
+            'name': 'Ajtak media group',
+            'company': 13,
 
         }
         serializer = ProductSerializer(data=user_data)

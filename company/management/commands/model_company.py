@@ -1,18 +1,19 @@
 from django.core.management.base import BaseCommand
 from company.serializers import CompanySerializer
+from company.models import Company
 
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
         user_data = {
-            'name': 'Adani Airport Pvt Ltd',
-            'owner': 1,
+            'name': 'India Today Pvt Ltd',
+            'owner': 16,
 
         }
-        serializer = CompanySerializer(data=user_data)
+        instance = Company.objects.get(pk=13)
+        serializer = CompanySerializer(data=user_data, instance=instance)
         if serializer.is_valid():
             company = serializer.save()
             print(f"Company Created: {company}")
-            print("FINAL APIVIEW+", serializer.data)
         else:
             print(serializer.errors)

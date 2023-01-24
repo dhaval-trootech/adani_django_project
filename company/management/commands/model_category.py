@@ -5,8 +5,8 @@ from company.serializers import CategorySerializer
 class Command(BaseCommand):
     def handle(self, *args, **options):
         user_data = {
-            'name': 'School Bags',
-            'product': 1,
+            'name': 'Breaking News',
+            'product': 8,
         }
         serializer = CategorySerializer(data=user_data)
         if serializer.is_valid():

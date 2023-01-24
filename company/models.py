@@ -2,7 +2,6 @@ from django.db import models
 
 
 # Create your models here.
-
 class Company(models.Model):
     name = models.CharField(max_length=255)
     established_date = models.DateTimeField(auto_now_add=True)
@@ -13,7 +12,7 @@ class Company(models.Model):
         verbose_name_plural = 'companies'
 
     def __str__(self):
-        return f"object Company - {self.name}"
+        return f"object({self.id}) Company - {self.name}"
 
 
 class Product(models.Model):
@@ -21,7 +20,7 @@ class Product(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='product_fk')
 
     def __str__(self):
-        return f"object Product - {self.name}"
+        return f"object({self.id}) Product - {self.name}"
 
 
 class ProductPrice(models.Model):
@@ -34,7 +33,7 @@ class ProductPrice(models.Model):
         verbose_name_plural = 'Product-Prices'
 
     def __str__(self):
-        return f"object Product_Price - {self.price}"
+        return f"object({self.id}) Product_Price - {self.price}"
 
 
 class Category(models.Model):
@@ -45,7 +44,7 @@ class Category(models.Model):
         verbose_name_plural = 'categories'
 
     def __str__(self):
-        return f"object Category - {self.name}"
+        return f"object({self.id}) Category - {self.name}"
 
 
 class Color(models.Model):
@@ -53,4 +52,4 @@ class Color(models.Model):
     category = models.ManyToManyField(Category, related_name='category_m2m')
 
     def __str__(self):
-        return f"object Color - {self.color}"
+        return f"object({self.id}) Color - {self.color}"
