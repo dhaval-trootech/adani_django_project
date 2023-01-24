@@ -10,17 +10,12 @@ class CompanyAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'company')
-
-
-@admin.register(ProductPrice)
-class ProductPriceAdmin(admin.ModelAdmin):
-    list_display = ('id', 'product', 'price', 'timestamp')
+    list_display = ('id', 'name', 'price', 'timestamp', 'company', 'category')
 
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'product')
+    list_display = ('id', 'name')
 
 
 @admin.register(Color)

@@ -23,21 +23,14 @@ class CompanySerializer(serializers.ModelSerializer):
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ('id', 'name', 'company')
-
-
-# Serializer for ProductPrice - model /...
-class ProductPriceSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ProductPrice
-        fields = ('id', 'product', 'price')
+        fields = ('id', 'name', 'price', 'timestamps', 'company', 'category')
 
 
 # Serializer for Category - model /...
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ('id', 'name', 'product')
+        fields = ('id', 'name')
 
 
 # Serializer for Color - model /...

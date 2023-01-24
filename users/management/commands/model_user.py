@@ -7,9 +7,8 @@ class Command(BaseCommand):
         user_data = {
             'username': 'aroon10',
             'first_name': 'Aroon',
-            'last_name': 'Purie',
             'email': 'aroon10@gmail.com',
-            'phone': 9924568754,
+            'phone': 1234567890,
             'password': 'Aroon@12911',
             'confirm_password': 'Aroon@12911',
 

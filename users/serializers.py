@@ -15,20 +15,13 @@ class UserSerializer(serializers.ModelSerializer):
             'password': {'write_only': True}
         }
 
-    def validate_email(self, value):
-        return value
-
     def validate_first_name(self, value):
-        if not value[0].isupper():
-            raise serializers.ValidationError("The first letter of the first name must be uppercase.")
-        elif not value.isalpha():
+        if not value.isalpha():
             raise serializers.ValidationError("First name should only contain alphabet characters.")
         return value
 
     def validate_last_name(self, value):
-        if not value[0].isupper():
-            raise serializers.ValidationError("The first letter of the last name must be uppercase.")
-        elif not value.isalpha():
+        if not value.isalpha():
             raise serializers.ValidationError("Last name should only contain alphabet characters.")
         return value
 
