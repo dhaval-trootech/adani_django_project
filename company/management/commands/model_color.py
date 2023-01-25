@@ -11,5 +11,6 @@ class Command(BaseCommand):
         if serializer.is_valid():
             color = serializer.save()
             print(f"Color created: {color}")
+            print(f"API based Beautiful data: {serializer.data}")
         else:
             print(serializer.errors)

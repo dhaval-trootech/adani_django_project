@@ -21,7 +21,6 @@ class Product(models.Model):
     timestamp = models.DateTimeField(auto_now=True)
     company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='companyProduct')
     category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='categoryProduct')
-    sub_category = models.ForeignKey('SubCategory', on_delete=models.CASCADE, related_name='subCategory')
     color = models.ForeignKey('color', on_delete=models.CASCADE, related_name='colorProduct')
 
     def __str__(self):
@@ -30,20 +29,10 @@ class Product(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
+    parent = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, related_name='categoryParent')
 
     class Meta:
         verbose_name_plural = 'categories'
-
-    def __str__(self):
-        return f"{self.name.upper()}"
-
-
-class SubCategory(models.Model):
-    name = models.CharField(max_length=255)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='subCategory')
-
-    class Meta:
-        verbose_name_plural = 'Sub-Categories'
 
     def __str__(self):
         return f"{self.name.upper()}"

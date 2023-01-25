@@ -9,8 +9,8 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = (
-            'id', 'username', 'first_name', 'last_name', 'password', 'email', 'phone', 'confirm_password', 'is_superuser')
+        fields = ('id', 'username', 'first_name', 'last_name', 'password', 'email', 'phone', 'confirm_password',
+                  'is_superuser', 'is_staff')
         extra_kwargs = {
             'password': {'write_only': True}
         }
@@ -45,6 +45,9 @@ class UserSerializer(serializers.ModelSerializer):
         user = User.objects.create(**validated_data)
         user.set_password(validated_data.get('password'))
         user.save()
+        query = connection.queries[-1]['sql']
+        parsed = sqlparse.format(query, reindent=True, keyword_case='upper')
+        print("SQL QUERY---> ", parsed)
         return user
 
     # Override Update() Method of ModelSerializer

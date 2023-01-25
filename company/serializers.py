@@ -21,23 +21,18 @@ class CompanySerializer(serializers.ModelSerializer):
 
 # Serializer for Product - model /...
 class ProductSerializer(serializers.ModelSerializer):
+    category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.filter(parent__isnull=False), required=True)
+
     class Meta:
         model = Product
-        fields = ('id', 'name', 'price', 'timestamps', 'company', 'category')
+        fields = ('id', 'name', 'price', 'timestamp', 'category')
 
 
 # Serializer for Category - model /...
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = ('id', 'name')
-
-
-# Serializer for SubCategory - model /...
-class SubCategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = SubCategory
-        fields = ('id', 'name', 'category')
+        fields = ('id', 'name', 'parent')
 
 
 # Serializer for Color - model /...
