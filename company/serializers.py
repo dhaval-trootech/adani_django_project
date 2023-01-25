@@ -33,6 +33,13 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ('id', 'name')
 
 
+# Serializer for SubCategory - model /...
+class SubCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SubCategory
+        fields = ('id', 'name', 'category')
+
+
 # Serializer for Color - model /...
 class ColorSerializer(serializers.ModelSerializer):
     class Meta:

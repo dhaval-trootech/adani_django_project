@@ -12,3 +12,6 @@ class User(AbstractUser):
 
     class Meta:
         db_table = 'adani_users'
+
+    def __str__(self):
+        return self.get_full_name()

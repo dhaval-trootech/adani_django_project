@@ -12,7 +12,7 @@ class Company(models.Model):
         verbose_name_plural = 'companies'
 
     def __str__(self):
-        return f"object({self.id}) Company - {self.name}"
+        return f"{self.name.upper()}"
 
 
 class Product(models.Model):
@@ -20,10 +20,12 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     timestamp = models.DateTimeField(auto_now=True)
     company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name='companyProduct')
-    category = models.OneToOneField('Category', on_delete=models.CASCADE, related_name='categoryProduct')
+    category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='categoryProduct')
+    sub_category = models.ForeignKey('SubCategory', on_delete=models.CASCADE, related_name='subCategory')
+    color = models.ForeignKey('color', on_delete=models.CASCADE, related_name='colorProduct')
 
     def __str__(self):
-        return f"object({self.id}) Product - {self.name}"
+        return f"{self.name.upper()}"
 
 
 class Category(models.Model):
@@ -33,12 +35,22 @@ class Category(models.Model):
         verbose_name_plural = 'categories'
 
     def __str__(self):
-        return f"object({self.id}) Category - {self.name}"
+        return f"{self.name.upper()}"
+
+
+class SubCategory(models.Model):
+    name = models.CharField(max_length=255)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='subCategory')
+
+    class Meta:
+        verbose_name_plural = 'Sub-Categories'
+
+    def __str__(self):
+        return f"{self.name.upper()}"
 
 
 class Color(models.Model):
-    color = models.CharField(max_length=255)
-    category = models.ManyToManyField(Category, related_name='categoryColor')
+    name = models.CharField(max_length=255)
 
     def __str__(self):
-        return f"object({self.id}) Color - {self.color}"
+        return f"{self.name.upper()}"

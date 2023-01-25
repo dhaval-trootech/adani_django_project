@@ -10,7 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = (
-            'id', 'username', 'first_name', 'last_name', 'password', 'email', 'phone', 'confirm_password')
+            'id', 'username', 'first_name', 'last_name', 'password', 'email', 'phone', 'confirm_password', 'is_superuser')
         extra_kwargs = {
             'password': {'write_only': True}
         }
@@ -18,12 +18,12 @@ class UserSerializer(serializers.ModelSerializer):
     def validate_first_name(self, value):
         if not value.isalpha():
             raise serializers.ValidationError("First name should only contain alphabet characters.")
-        return value
+        return value.capitalize()
 
     def validate_last_name(self, value):
         if not value.isalpha():
             raise serializers.ValidationError("Last name should only contain alphabet characters.")
-        return value
+        return value.capitalize()
 
     def validate_phone(self, value):
         if not len(str(value)) == 10:

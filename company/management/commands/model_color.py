@@ -5,9 +5,7 @@ from company.serializers import ColorSerializer
 class Command(BaseCommand):
     def handle(self, *args, **options):
         user_data = {
-            'name': 'Pink',
-
-
+            'name': 'Brownish Black'
         }
         serializer = ColorSerializer(data=user_data)
         if serializer.is_valid():
